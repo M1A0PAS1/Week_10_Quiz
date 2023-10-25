@@ -12,3 +12,13 @@ function setup() {
 function draw() {
   background(220);
 }
+
+//A function to let user use mouse click to play the song
+function mouseClicked(){
+  if (song.isPlaying()){
+    song.pause();
+  }
+  else{
+    song.play();
+  }
+}

@@ -1,5 +1,6 @@
 var song;
 var fft;
+var particles = []; //Keep track of particles
 
 //Preload the mp3 file to the 'song'varible
 function preload() {
@@ -46,10 +47,21 @@ function draw() {
         line(0, 0, x, y);
       }
       stroke(255);
-      vertex(x, y);
+      vertex(1.5 * x, 1.5 * y);
 
     }
     endShape();
+  }
+
+
+  //Create particle every frame
+  var p = new Particle();
+  particles.push(p); //push particle to array
+
+  //call the show()
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].show();
   }
 }
 
@@ -66,6 +78,27 @@ function mouseClicked() {
 }
 
 //Create particle around the circle
-// class Particle{
+class Particle {
+  constructor() {
+    this.pos = p5.Vector.random2D().mult(250); //Make the particle at random postion
+    //Add velocity and acceleration
+    this.vel = createVector(0, 0); //Strat at 0
+    this.acc = this.pos.copy().mult(random(0.0001, 0.00001)); //Use copy() to ensure same direction
 
-// }
+    this.w = random(3, 5); //random width
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel); //Add acceleration to velocity and velocity to postion
+  }
+
+
+  show() {
+    noStroke();
+    fill(255);
+    ellipse(this.pos.x, this.pos.y, this.w); //Draw the elipse
+
+  }
+
+}

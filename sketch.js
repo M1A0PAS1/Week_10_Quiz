@@ -4,7 +4,7 @@ var particles = []; //Keep track of particles
 
 //Preload the mp3 file to the 'song'varible
 function preload() {
-  song = loadSound('Asset/Abel Korzeniowski - Satin Birds.mp3');
+  song = loadSound('Asset/sample-visualisation.mp3');
 }
 
 function setup() {
@@ -47,7 +47,7 @@ function draw() {
 
       // Create lines with a larger increment
       if (i % 4 === 0) {
-        line(0, 0, x, y);
+        line(0, 0, x/2, y/2);
       }
       stroke(255);
       vertex(1.5 * x, 1.5 * y);

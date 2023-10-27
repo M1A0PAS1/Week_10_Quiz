@@ -2,6 +2,8 @@ var song;
 var fft;
 var particles = []; //Keep track of particles
 
+//Inspired and learnt from https://github.com/Ronik22/Audio-Visualizer, https://www.youtube.com/watch?v=uk96O7N1Yo0
+
 //Preload the mp3 file to the 'song'varible
 function preload() {
   song = loadSound('Asset/sample-visualisation.mp3');

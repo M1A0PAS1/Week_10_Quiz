@@ -16,7 +16,6 @@ function setup() {
 
 function draw() {
   background(0);
-  fill(10);
   noStroke();
   strokeWeight(5);
   noFill();
@@ -59,9 +58,15 @@ function draw() {
   particles.push(p); //push particle to array
 
   //call the show()
-  for (let i = 0; i < particles.length; i++) {
-    particles[i].update();
-    particles[i].show();
+
+  for (let i = particles.length -1; i >= 0; i--) { //Backward condition
+    if (!particles[i].edges()) {
+      particles[i].update();
+      particles[i].show();
+    }
+    else {
+      particles.splice(i, 1); //If false, then remove it
+    }
   }
 }
 
@@ -91,6 +96,16 @@ class Particle {
   update() {
     this.vel.add(this.acc);
     this.pos.add(this.vel); //Add acceleration to velocity and velocity to postion
+  }
+
+  //Remove when out of canvas
+  edges() {
+    if (this.pos.x < -width / 2 || this.pos.x > width / 2 || this.pos.y < -height / 2 || this.pos.y > height / 2) {
+      return true;
+    }
+    else {
+      return false; //Use ture or false to ctrl
+    }
   }
 
 

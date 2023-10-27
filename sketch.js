@@ -20,6 +20,10 @@ function draw() {
   strokeWeight(5);
   noFill();
 
+  //Make particles respond by frequency
+  fft.analyze(); //Out put a number between 0 and 255
+  amp = fft.getEnergy(20, 200);
+
 
   translate(width / 2, height / 2); //Move to the center of the screen
 
@@ -59,9 +63,9 @@ function draw() {
 
   //call the show()
 
-  for (let i = particles.length -1; i >= 0; i--) { //Backward condition
+  for (let i = particles.length - 1; i >= 0; i--) { //Backward condition
     if (!particles[i].edges()) {
-      particles[i].update();
+      particles[i].update(amp > 200); //check if amp is ture
       particles[i].show();
     }
     else {
@@ -93,9 +97,14 @@ class Particle {
     this.w = random(3, 5); //random width
   }
 
-  update() {
+  update(cond) { //check condition
     this.vel.add(this.acc);
     this.pos.add(this.vel); //Add acceleration to velocity and velocity to postion
+    if (cond) { //If condition is ture (amp >200), call add velocity more times
+      this.pos.add(this.vel);
+      this.pos.add(this.vel);
+      this.pos.add(this.vel);
+    }
   }
 
   //Remove when out of canvas

@@ -25,6 +25,7 @@ function draw() {
   amp = fft.getEnergy(20, 200);
 
 
+
   translate(width / 2, height / 2); //Move to the center of the screen
 
 
@@ -47,7 +48,7 @@ function draw() {
 
       // Create lines with a larger increment
       if (i % 4 === 0) {
-        line(0, 0, x/2, y/2);
+        line(0, 0, x * amp / 100, y * amp / 100); //Base on amp
       }
       stroke(255);
       vertex(1.5 * x, 1.5 * y);
@@ -94,7 +95,8 @@ class Particle {
     this.vel = createVector(0, 0); //Strat at 0
     this.acc = this.pos.copy().mult(random(0.0001, 0.00001)); //Use copy() to ensure same direction
 
-    this.w = random(3, 5); //random width
+    this.w = random(3, 5); //random width`
+    this.color = [random(0,255), random(0,255), random(0,255)] //Random color
   }
 
   update(cond) { //check condition
@@ -120,7 +122,7 @@ class Particle {
 
   show() {
     noStroke();
-    fill(255);
+    fill(this.color);
     ellipse(this.pos.x, this.pos.y, this.w); //Draw the elipse
 
   }
